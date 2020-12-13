@@ -1,0 +1,83 @@
+@import '~@angular/material/theming';
+@import '~@covalent/core/theming/all-theme';
+
+@include mat-core();
+
+$primary: mat-palette($mat-light-blue);
+$accent: mat-palette($mat-deep-orange);
+$warn: mat-palette($mat-red);
+$theme: mat-light-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);
+@include covalent-theme($theme);
+
+// Active icon color in list nav
+mat-nav-list {
+  [mat-list-item].active {
+    mat-icon[matListAvatar] {
+      background-color: mat-color($accent);
+      color: mat-color($accent, default-contrast);
+    }
+    mat-icon[matListIcon] {
+      color: mat-color($accent);
+    }
+  }
+}
+
+// Active top nav
+nav {
+  a {
+    line-height: 4;
+    display: block;
+    &:not(.active) {
+      color: rgba(255, 255, 255, 0.56);
+    }
+    &.active {
+      color: mat-color($accent);
+      border-bottom: 1px solid mat-color($accent);
+    }
+  }
+}
+
+// Links
+a {
+  text-decoration: none;
+}
+// Table
+mat-cell:first-child,
+mat-footer-cell:first-child,
+mat-header-cell:first-child {
+  padding-left: 0px !important;
+}
+
+mat-footer-row {
+  font-weight: bold;
+}
+
+.mobile-label {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .mobile-label {
+    width: 100px;
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  .mat-header-row,
+  .mat-footer-row {
+    display: none;
+  }
+
+  .mat-row {
+    flex-direction: column;
+    align-items: start;
+    padding: 8px 24px;
+  }
+
+  mat-footer-row,
+  mat-row {
+    min-height: 24px !important;
+  }
+}

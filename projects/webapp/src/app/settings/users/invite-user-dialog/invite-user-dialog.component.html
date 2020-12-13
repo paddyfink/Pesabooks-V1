@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Invite user</h1>
+<div mat-dialog-content [formGroup]="formGroup" fxLayout="column">
+
+  <mat-form-field fxFex>
+    <input matInput formControlName="email" placeholder="Email">
+  </mat-form-field>
+
+  <mat-form-field fxFex>
+    <mat-select formControlName="role" placeholder="Role">
+      <mat-option *ngFor="let role of roles" [value]="role">
+        {{ role }}
+      </mat-option>
+      <mat-divider></mat-divider>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions *tdLoading="'actions'; mode:'linear'; type:'circle'; strategy:'overlay'; color:'accent'" fxFex>
+  <button mat-button [mat-dialog-close]>Cancel</button>
+  <span fxFlex></span>
+  <button mat-button (click)="invite()">Invite</button>
+</div>

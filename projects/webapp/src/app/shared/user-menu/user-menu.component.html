@@ -1,0 +1,50 @@
+<div class="cursor-pointer" fxLayout="row" fxLayoutAlign="start center" [matMenuTriggerFor]="userMenu">
+  <img [src]="currentUser?.pictureUrl || 'assets/images/profile.jpg'" class="user-avatar">
+  <span hide-xs class="push-left-sm">{{(currentGroup$ |async)?.name}}</span>
+  <mat-icon hide-xs>keyboard_arrow_down</mat-icon>
+</div>
+<mat-menu #userMenu="matMenu" [overlapTrigger]="false">
+  <div *ngIf="!showGroupsList; else switchGroup">
+    <a mat-menu-item (click)="showGroupsList=!showGroupsList;$event.stopPropagation()">
+      <mat-icon>settings</mat-icon>
+      <span>{{'app.groups.swithGroup'| translate}}</span>
+    </a>
+    <a mat-menu-item (click)="openCreateGroupDialog()" *ngxPermissionsExcept="['demo']">
+      <mat-icon>group_add</mat-icon>
+      <span>{{'app.groups.createNewGroup'| translate}}</span>
+    </a>
+    <mat-divider></mat-divider>
+    <!-- <a [routerLink]="['/settings']" mat-menu-item>
+      <mat-icon>settings</mat-icon>
+      <span>Settings</span>
+    </a>-->
+    <div fxLayout="row" class="pad">
+      <img [src]="currentUser?.pictureUrl || 'assets/images/profile.jpg'" class="user-avatar push-right">
+      <div fxLayout="column">
+        <span>{{currentUser?.email}}</span>
+        <a [routerLink]="['/profile']" disabled>
+          <span>Edit my Profile</span>
+        </a>
+      </div>
+    </div>
+    <!-- <a [routerLink]="['/profile']" mat-menu-item>
+      <mat-icon>person</mat-icon>
+      <span>{{currentUser?.email}}</span>
+      <span>Edit my Profile</span>
+    </a> -->
+    <mat-divider></mat-divider>
+    <a mat-menu-item (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>{{'app.logout' | translate}}</span>
+    </a>
+  </div>
+  <ng-template #switchGroup>
+    <a mat-menu-item (click)="showGroupsList=!showGroupsList;$event.stopPropagation()">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <a mat-menu-item *ngFor="let group of groups$ |async" (click)="changeGroup(group)">
+      <mat-icon>group</mat-icon>
+      <span>{{group.name}}</span>
+    </a>
+  </ng-template>
+</mat-menu>

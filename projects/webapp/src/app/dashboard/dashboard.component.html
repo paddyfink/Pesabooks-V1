@@ -1,0 +1,86 @@
+<mat-card>
+
+  <div tdMediaToggle="gt-sm" [mediaClasses]="['pad-lg']" fxLayout="column">
+    <div fxLayout="column" fxLayout.gt-sm="row">
+      <div fxFlex>
+        <mat-card>
+          <mat-card-content class="text-center">
+            <div class="mat-headline push-bottom-none" [ngClass]="{'tc-green-800':balance>=0, 'tc-red-800':balance<0}">
+              {{ balance| currency:currentGroup?.currency:'symbol-narrow' }}
+            </div>
+            <!-- <mat-icon class="icon tc-indigo-700">perm_contact_calendar</mat-icon> -->
+            <div>
+              <div class="mat-subheading-2 push-bottom-none">{{'app.dashboard.balance' | translate}}</div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div fxFlex>
+        <mat-card>
+          <mat-card-content class="text-center">
+            <div class="mat-headline push-bottom-none">
+              {{ loanPerStatus.output?.unpaid| currency:currentGroup?.currency:'symbol-narrow' }}
+            </div>
+            <!-- <mat-icon class="icon tc-indigo-700">perm_contact_calendar</mat-icon> -->
+            <div>
+              <div class="mat-subheading-2 push-bottom-none">{{'app.dashboard.loans' | translate}}</div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div fxFlex>
+        <mat-card>
+          <mat-card-content class="text-center">
+            <div class="mat-headline push-bottom-none">{{ loanPerStatus.input?.unpaid|
+              currency:currentGroup?.currency:'symbol-narrow' }}
+            </div>
+            <!-- <mat-icon class="icon tc-indigo-700">perm_contact_calendar</mat-icon> -->
+            <div>
+              <div class="mat-subheading-2 push-bottom-none">{{'app.dashboard.savings' | translate}}</div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <div>
+      <mat-card>
+        <mat-card-title>{{'app.dashboard.transactionsPerMonth' | translate}}</mat-card-title>
+        <!-- <div style="height: 300px">
+                <canvas *ngIf="labels" baseChart [datasets]="barChartData" [labels]="labels" [options]="BarChartOptions"
+                  [legend]="true" chartType="bar"></canvas>
+              </div> -->
+        <div style="height: 300px">
+          <ngx-charts-bar-vertical-2d [results]="single" [gradient]="false" [xAxis]="true" [yAxis]="true" [legend]="true"
+            [showXAxisLabel]="true" [scheme]="colorScheme" [yAxisLabel]="true" [yAxisTickFormatting]="axisCurrencyFormatFn"
+            legendTitle="">
+          </ngx-charts-bar-vertical-2d>
+        </div>
+      </mat-card>
+    </div>
+
+    <div fxLayout="column" fxLayout.gt-sm="row">
+      <div fxLayout="column" fxFlex="40">
+        <div>
+          <mat-card>
+            <div style="height: 150px">
+              <ngx-charts-bar-horizontal [scheme]="colorScheme" [results]="receivedSentDataset" [gradient]="false"
+                [xAxis]="true" [yAxis]="true" [legend]="false" [showXAxisLabel]="true" [showYAxisLabel]="true"
+                [xAxisTickFormatting]="axisCurrencyFormatFn" [showDataLabel]="true">
+              </ngx-charts-bar-horizontal>
+            </div>
+          </mat-card>
+        </div>
+        <app-transaction-per-category-type></app-transaction-per-category-type>
+      </div>
+      <div fxLayout="column" fxFlex="60">
+        <div>
+          <app-upcoming-loans></app-upcoming-loans>
+        </div>
+        <div>
+          <app-latest-transactions></app-latest-transactions>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</mat-card>

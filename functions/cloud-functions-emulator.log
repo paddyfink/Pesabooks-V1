@@ -1,0 +1,6 @@
+2018-05-16T22:10:42.782Z - info: User function triggered, starting execution
+2018-05-16T22:10:43.947Z - info: groupid groupId5
+2018-05-16T22:10:43.995Z - info: Execution took 1251 ms, finished with status: 'crash'
+2018-05-16T22:11:10.508Z - info: User function triggered, starting execution
+2018-05-16T22:11:11.465Z - info: groupid groupId9
+2018-05-16T22:11:12.315Z - info: Execution took 1807 ms, user function completed successfully

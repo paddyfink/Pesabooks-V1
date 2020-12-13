@@ -1,0 +1,50 @@
+/* You can add global styles to this file, and also import other style files */
+// .full-screen-dialog .mat-dialog-container {
+//   max-width: none;
+//   width: 100%;
+//   height: 100vh;
+// }
+
+// layout
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+//Mat Nav
+nav a:not(.active) {
+  color: black !important;
+}
+
+// td-layout-nav {
+//   background-color: white;
+// }

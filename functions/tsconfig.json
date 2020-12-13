@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "lib": ["es6"],
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "target": "es6",
+    "baseUrl": "./",
+    "paths": {
+      "@app/models": ["../projects/webapp/src/app/models"]
+    }
+  },
+  "compileOnSave": true,
+  "include": ["src"]
+}

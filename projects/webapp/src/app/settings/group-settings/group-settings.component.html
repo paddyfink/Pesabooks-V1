@@ -1,0 +1,43 @@
+<div [formGroup]="formGroup" fxLayout="column" class="pad">
+  <td-message #message [sublabel]="errorMessage" color="warn" icon="error" [opened]="false">
+    <button td-message-actions mat-button (click)="message.close()">Close</button>
+  </td-message>
+
+
+  <mat-form-field>
+    <input matInput type="text" formControlName="name" [placeholder]="'app.groups.name' | translate" name="name">
+    <mat-error [hidden]="!nameControl.errors?.required">
+      {{"app.validations.fieldRequired" | translate:{field: 'app.groups.name' | translate} }}
+    </mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <mat-select [placeholder]="'app.groups.currency' | translate" formControlName="currency">
+      <mat-option *ngFor="let currency of currencies$ | async" [value]="currency.value">
+        {{ currency.value }} - {{ currency.text }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <textarea matInput type="text" formControlName="description" [placeholder]="'app.groups.description' | translate" name="description">
+      </textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" formControlName="startDate" [placeholder]="'app.groups.startDate' | translate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" formControlName="openingBalance" type="number" [placeholder]="'app.groups.openingBalance' | translate"
+      name="openingBalance">
+  </mat-form-field>
+
+  <div class="push-top">
+    <button mat-raised-button color="accent" (click)="save()" [disabled]="!formGroup?.valid">{{"app.common.save" | translate}}</button>
+  </div>
+</div>

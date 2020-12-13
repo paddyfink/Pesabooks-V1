@@ -1,0 +1,39 @@
+<mat-card class="pad">
+  <mat-card-title>{{'app.dashboard.totalPerCategory'| translate}}</mat-card-title>
+  <!-- <div style="height: 300px">
+    <canvas *ngIf="initialised" baseChart [options]="PolarChartOptions" [data]="categoriesData" [labels]="categoriesLabels"
+      chartType="doughnut"></canvas>
+  </div> -->
+  <!-- <mat-list dense>
+    <mat-list-item *ngFor="let category of transactionAmountByCateogry | keyvalue">
+      <h4 mat-line>{{category.key}} : {{category.value | currency:currentGroup?.currency:'symbol-narrow'}} </h4>
+    </mat-list-item>
+  </mat-list> -->
+
+  <mat-table [dataSource]="transactionAmountByCateogry | keyvalue | orderBy: '-value'">
+
+    <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+
+    <!-- Category Column -->
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.key}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="total">
+      <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+      <mat-cell *matCellDef="let element" [ngClass]="{'tc-green-800':element.value>=0, 'tc-red-800':element.value<0}">
+        {{element.value | currency:currentGroup?.currency:'symbol-narrow'}}
+      </mat-cell>
+    </ng-container>
+
+
+
+    <mat-header-row *matHeaderRowDef="['category','total']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['category','total'];"></mat-row>
+  </mat-table>
+
+</mat-card>

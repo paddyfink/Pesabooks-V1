@@ -1,0 +1,28 @@
+mat-card {
+  min-height: 240px
+}
+
+.jumbotron {
+  background-color: white !important;
+}
+
+.notebook-card {
+  min-width: 220px;
+  box-sizing: border-box;
+  background: url("/assets/images/chart_bg.jpg") no-repeat center;
+  background-size:cover;
+  .mat-card-footer {
+    height: 80px;
+    padding: 0 30px;
+    background-color: rgba(#212121, 0.87);
+    margin: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+h5 {
+  margin: 5px 0;
+}

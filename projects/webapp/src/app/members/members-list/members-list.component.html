@@ -1,0 +1,44 @@
+<div class="pad" *ngIf="members?.length === 0; else membersTable" layout="row" layout-align="center center">
+  <h3>No members to display.</h3>
+</div>
+<ng-template #membersTable>
+
+  <mat-table [dataSource]="membersDataSource">
+    <!-- Member name Definition -->
+    <ng-container matColumnDef="fullName">
+      <mat-header-cell *matHeaderCellDef> Member </mat-header-cell>
+      <mat-cell *matCellDef="let member"> {{member.fullName}} </mat-cell>
+    </ng-container>
+
+    <!-- Email Definition -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+      <mat-cell *matCellDef="let member"> {{member.email}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef> Phone </mat-header-cell>
+      <mat-cell *matCellDef="let member"> {{member.phone}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef hide-xs> </mat-header-cell>
+      <mat-cell *matCellDef="let member" hide-xs>
+        <span fxFlex></span>
+        <button mat-icon-button [mat-menu-trigger-for]="menu" (click)="$event.stopPropagation()" *ngxPermissionsOnly="['admin']">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu x-position="before" #menu="matMenu">
+          <button mat-menu-item (click)="openDialog.emit(member)" mat-menu-item>
+            {{'app.common.edit' | translate}}
+          </button>
+        </mat-menu>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef hide-xs> </mat-footer-cell>
+    </ng-container>
+
+    <!-- Header and Row Declarations -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</ng-template>

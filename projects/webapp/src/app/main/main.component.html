@@ -1,0 +1,25 @@
+<td-layout #layout [opened]="media.registerQuery('gt-sm') | async" [mode]="(media.registerQuery('gt-sm') | async) ? 'side' :  'over'">
+  <td-navigation-drawer sidenavTitle="Pesabooks" icon="bubble_chart" color="primary">
+    <mat-nav-list>
+      <a *ngFor="let item of routes" mat-list-item [routerLink]="item.route" [routerLinkActive]="['active']" (click)="menuClicked()">
+        <mat-icon matListIcon>{{item.icon}}</mat-icon>{{item.title | translate}}
+      </a>
+      <a mat-list-item routerLink="/settings" [routerLinkActive]="['active']" (click)="menuClicked()"
+        *ngxPermissionsOnly="['admin']">
+        <mat-icon matListIcon>settings</mat-icon>{{'app.common.settings' | translate}}
+      </a>
+      <a mat-list-item routerLink="/host" [routerLinkActive]="['active']" (click)="menuClicked()" *ngxPermissionsOnly="['host']">
+        <mat-icon matListIcon>settings</mat-icon>Host
+      </a>
+    </mat-nav-list>
+  </td-navigation-drawer>
+  <td-layout-nav>
+    <div td-toolbar-content layout="row" layout-align="start center" fxFlex>
+      <button mat-icon-button td-menu-button tdLayoutToggle>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <app-toolbar fxFlex></app-toolbar>
+    </div>
+    <router-outlet fxLayout="column"></router-outlet>
+  </td-layout-nav>
+</td-layout>

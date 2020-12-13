@@ -1,0 +1,59 @@
+<td-message #messagePanel [sublabel]="errorMessage" color="warn" icon="error" [opened]="false">
+  <button td-message-actions mat-icon-button (click)="messagePanel.close()" type="button">
+    <mat-icon>cancel</mat-icon>
+  </button>
+</td-message>
+<section fxLayoutAlign="center center" fxFlexFill>
+  <mat-card [formGroup]="form" style="max-width: 300px;">
+
+    <div *tdLoading="'loading'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'accent'">
+
+      <mat-card-title class="text-center">
+        <mat-icon>bubble_chart</mat-icon>Pesabooks
+      </mat-card-title>
+      <mat-card-content class="text-center" fxLayout="column">
+        <button class="social-button push-top bgc-blue-900" mat-raised-button (click)="signInWithFacebook()"
+          fxLayoutAlign="start center">
+          <fa-icon [icon]="['fab', 'facebook-f']"></fa-icon>
+          <span class="push-left"> {{"app.auth.signInWithFacebook" | translate}}</span>
+        </button>
+        <button class="social-button push-top bgc-red-800" mat-raised-button (click)="signInWithGoogle()" fxLayoutAlign="start center">
+          <fa-icon [icon]="['fab', 'google']"></fa-icon>
+          <span class="push-left"> {{"app.auth.signInWithGoogle" | translate}}</span>
+        </button>
+        <button mat-raised-button *ngIf="!showEmailSigninForm" (click)="showEmailSigninForm=true" color="primary" class="push-top"
+          fxLayoutAlign="start center">
+          <fa-icon [icon]="['far', 'envelope']"></fa-icon>
+          <span class="push-left"> {{"app.auth.signInWithEmail" | translate}}</span>
+        </button>
+        <div *ngIf="showEmailSigninForm" class="push-top">
+          <mat-form-field fxFlexFill class="push-top">
+            <input matInput formControlName="email" [placeholder]="'app.auth.email' | translate" type="email" maxlength="30"
+              name="email">
+            <mat-error [hidden]="!email?.errors?.required || !email.errors?.email">
+              {{"app.validations.email" | translate }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlexFill class="push-top">
+            <input matInput formControlName="password" [placeholder]="'app.auth.password' | translate" type="password"
+              name="password">
+            <mat-error [hidden]="!password?.errors?.required">
+              {{"app.validations.fieldRequired" | translate:{field: 'app.auth.password' | translate} }}
+            </mat-error>
+          </mat-form-field>
+          <button mat-raised-button color="primary" class="push-top" (click)="signIn()">{{"app.auth.login" |
+            translate
+            }}</button>
+        </div>
+        <button mat-raised-button color="accent" class="push-top" (click)="loginWithDemoAccount()">
+          <span class="push-left"> Test the Demo </span></button>
+        <p class="push-top"> {{"app.auth.dontHaveAccount" | translate }}
+          <a routerLink="/auth/register" [queryParams]="{next: next}" class="primary-color"> {{"app.auth.register" |
+            translate }}</a>
+        </p>
+
+      </mat-card-content>
+    </div>
+  </mat-card>
+</section>

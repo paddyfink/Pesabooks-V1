@@ -1,0 +1,166 @@
+{
+	"app": {
+		"auth": {
+			"50+": "Plus de 50",
+			"alreadyHaveAccount": "Vous avez déjà un compte?",
+			"city": "Ville",
+			"contribution": "Contribution minimum par membre",
+			"dontHaveAccount": "Vous n'avez pas de compte ?",
+			"email": "Adresse e-mail",
+			"firstName": "Prénom",
+			"invalidInvitation": "",
+			"invalidLoginOrPassword": "e-mail ou mot de passe invalid",
+			"lastName": "Nom",
+			"login": "Se Connecter",
+			"members": "Taille de votre group",
+			"password": "Mot de passe",
+			"register": "Inscription",
+			"registrationCode": "Code d'enregistrement",
+			"repeatPassword": "Répéter mot de passe",
+			"request": "Demande d'accès",
+			"requestAccess": "Demander un accès",
+			"requestMessage": "Votre message a été envoyé. Nous reviendrons vers vous dès que possible.",
+			"requestTitle": "MERCI",
+			"restriction": "",
+			"signInButtom": "Connexion",
+			"signInWithEmail": "Se connecter avec le courriel",
+			"signInWithFacebook": "Se connecter avec Facebook",
+			"signInWithGoogle": "Se connecter avec Google"
+		},
+		"common": {
+			"cancel": "",
+			"categories": "Catégories",
+			"dashboard": "Tableau de bord",
+			"delete": "Supprimer",
+			"edit": "Modifier",
+			"member": "Membre",
+			"members": "Membres",
+			"report": "Rapport",
+			"save": "Enregistrer",
+			"settings": "Paramêtres",
+			"transactions": "Transactions",
+			"users": "Utilisateurs"
+		},
+		"dashboard": {
+			"balance": "Solde",
+			"bank": "Banque",
+			"latestTransactions": "Dernières Transactions",
+			"loans": "Prêts",
+			"received": "Reçus",
+			"savings": "Epargne",
+			"sent": "Envoyés",
+			"totalPerCategory": "Total Par Catégorie",
+			"transactionsPerMonth": "",
+			"upcomingLoans": "Prêts en cours"
+		},
+		"groups": {
+			"create": "Crée",
+			"createNewGroup": "Créer un nouveau Cercle",
+			"currency": "Devise",
+			"description": "Description du cercle",
+			"name": "Nom du cercle",
+			"newGroup": "Nouveau Cercle",
+			"openingBalance": "Solde d'ouverture",
+			"startDate": "Date de début",
+			"swithGroup": "Changer de Cercle"
+		},
+		"logout": "Se deconnecter",
+		"members": {
+			"addMember": ""
+		},
+		"settings": {
+			"categories": {
+				"contribution": "Cotisation",
+				"fineAndPenalty": "Amendes Et Pénalités",
+				"interestAndFee": "Intêrets et Frais",
+				"loan": "Prêts",
+				"pot": "Lot",
+				"repayment": "Remboursement"
+			},
+			"email": "Courriel",
+			"general": "Général",
+			"invitations": "Invitations",
+			"inviteUser": "Inviter Nouvel Utilisateur",
+			"name": "Nom",
+			"noActiveInvitations": "Aucune Invitations Actives",
+			"removeUser": "Supprimer Utilisateur",
+			"role": "Role",
+			"status": "Statut",
+			"users": "Utiliateurs"
+		},
+		"transactions": {
+			"actions": {
+				"actions": "Actions",
+				"receivePayments": ""
+			},
+			"addLine": "Ajouter Ligne",
+			"amount": "Montant",
+			"balance": "Solde",
+			"balanceDue": "Solde Dû",
+			"category": "Catégorie",
+			"date": "Date",
+			"dueDate": "Date Dû",
+			"filters": {
+				"allCategories": "Toutes les catégories",
+				"allDates": "Toutes les dates",
+				"allDirections": "Toutes les directions",
+				"allMembers": "Tous les membres",
+				"allTypes": "Tous les types",
+				"category": "Catégorie",
+				"date": "Date",
+				"direction": "Direction",
+				"filter": "Filtre",
+				"member": "Membre",
+				"type": "Type"
+			},
+			"incomingTransaction": "",
+			"input": {
+				"loan": "",
+				"payment": ""
+			},
+			"inputTransactions": "",
+			"loan": "Prêt",
+			"markAsPaid": "Marquer comme payé",
+			"markAsUnpaid": "Marquer comme impayé",
+			"member": "Membre",
+			"newTransaction": "Nouvelle Transaction",
+			"outgoingTransaction": "",
+			"output": {
+				"loan": "",
+				"payment": ""
+			},
+			"outputTransactions": "",
+			"payment": "",
+			"received": "Reçus",
+			"sent": "Envoyé",
+			"status": {
+				"closed": "Fermé",
+				"paid": "Payé",
+				"status": "Statut",
+				"unpaid": "Impayé"
+			},
+			"total": "Total",
+			"totalInputLoans": "",
+			"totalInputPayments": "",
+			"totalOutputLoans": "",
+			"totalOutputPayments": "",
+			"transactionLine": {
+				"amount": "Somme",
+				"category": "Category",
+				"description": "Description"
+			},
+			"trends": "",
+			"type": "Type"
+		},
+		"validations": {
+			"currency": "Selectionner une devise valide",
+			"email": "Cette adresse email n'est pas valide",
+			"fieldRequired": "{{field}} est obligatoire",
+			"registrationCode": "Code non valide",
+			"repeatPassword": "Les mots de passe ne correspondent pas",
+			"required": "Obligatoire"
+		},
+		"welcomeMessage": "Bienvenue sur Pesabooks!",
+		"welcomeMessageTagline": "Un logiciel de comptabilité pour vous aider à organiser votre group d'épargne et de crédit"
+	}
+}

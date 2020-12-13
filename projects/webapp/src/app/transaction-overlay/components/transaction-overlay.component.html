@@ -1,0 +1,158 @@
+<div fxLayout="column" fxFlexFill>
+
+    <mat-toolbar color="primary">
+        <!-- <div fxLayout="row"> -->
+        <span>{{title}}</span>
+        <span fxFlex></span>
+        <button mat-icon-button type="button" (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+        <!-- </div> -->
+    </mat-toolbar>
+
+
+
+    <div [formGroup]="transactionForm" class="pad-left-xl pad-right-xl push-top-xl" fxLayout="column" fxFlex style="overflow-y: auto;">
+        <div fxLayout="row" style="min-height: 40px">
+            <mat-form-field>
+                <mat-select #memberSelect formControlName="memberId" placeholder="Member">
+                    <mat-option *ngIf="members?.length===0"></mat-option>
+                    <mat-option *ngFor="let member of members" [value]="member.id">
+                        {{ member.firstName }} {{ member.lastName }}
+                    </mat-option>
+                    <mat-divider></mat-divider>
+                    <a (click)="addMember(memberControl.value)" mat-button style="width: 100%" *ngxPermissionsOnly="['admin']">{{'app.members.addMember'
+                        | translate}}</a>
+                </mat-select>
+            </mat-form-field>
+            <span fxFlex></span>
+            <mat-form-field>
+                <mat-select formControlName="type">
+                    <mat-option value="payment"> Payment </mat-option>
+                    <mat-option value="loan"> Loan </mat-option>
+                    <mat-divider></mat-divider>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+        <div class="push-top-md" fxLayout="row" style="min-height: 40px">
+            <mat-form-field>
+                <input matInput [min]="minDate" [matDatepicker]="datePicker" placeholder="Date" formControlName="date">
+                <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                <mat-datepicker #datePicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="push-left" *ngIf="transactionForm?.value.type=='loan'">
+                <input matInput [matDatepicker]="dueDatePicker" placeholder="Due Date" formControlName="dueDate">
+                <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #dueDatePicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="push-top-md" fxFlex>
+            <table class="transactions" formArrayName="lines" (clickOutside)="selectedRowIndex=null">
+                <tr>
+                    <th style="width:5%">#</th>
+                    <th style="width:30%">{{'app.transactions.transactionLine.category' | translate}}</th>
+                    <th style="width:50%">{{'app.transactions.transactionLine.description' | translate}}</th>
+                    <th style="width:10%">{{'app.transactions.transactionLine.amount' | translate}}</th>
+                    <th style="width:5%"></th>
+                </tr>
+                <tr *ngFor="let line of linesControl.controls; let index=index; let first=first" class="transaction-line cursor-pointer"
+                    [ngClass]="{'selected':selectedRowIndex==index}" (click)="selectedRowIndex=index" [formGroupName]="index">
+                    <td>{{index+1}}</td>
+                    <td>
+                        <!-- <span *ngIf="index!==selectedRowIndex">{{categoriesEntites[line.get('categoryId').value]?.name}}</span> -->
+                        <mat-form-field style="width: 100%">
+                            <mat-select formControlName="categoryId">
+                                <mat-option *ngIf="categories?.length===0"></mat-option>
+                                <mat-option *ngFor="let category of categories" [value]="category.id" (click)="selectedRowIndex=index">
+                                    {{category.name}}
+                                </mat-option>
+                                <a mat-button style="width: 100%" (click)="addCategory(index)">Add New Category</a>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <!-- <span *ngIf="index!==selectedRowIndex">{{line.get('description').value}}</span> -->
+                        <mat-form-field style="width: 100%">
+                            <input matInput formControlName="description">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <!-- <span *ngIf="index!==selectedRowIndex">{{line.get('amount').value | currency}}</span> -->
+                        <mat-form-field>
+                            <input matInput type="number" formControlName="amount">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <button mat-icon-button (click)="removeLine(index)" *ngIf="!first">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            <div fxLayout="row">
+                <div>
+                    <button mat-button type="button" color="accent" (click)="addLine()" *ngxPermissionsOnly="['admin']">{{'app.transactions.addLine'
+                        | translate}}</button>
+                </div>
+                <span fxFlex></span>
+                <div>
+                    <table class="loan-section">
+                        <tr>
+                            <td>
+                                <b>{{'app.transactions.total' | translate}}:</b>
+                            </td>
+                            <td class="price">
+                                <span class="push-left">{{total | currency:currentGroup?.currency:'symbol-narrow'}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="loan-section push-top-lg" *ngIf="transactionForm?.value.type==='loan'">
+                        <tr>
+                            <td>
+                                <div fxLayout="row" fxLayoutAlign="start center">
+
+                                    <mat-select formControlName="interestType" [style.width]="'150px'">
+                                        <mat-option value="percent"> Interest Percent </mat-option>
+                                        <mat-option value="value"> Interest Value </mat-option>
+                                    </mat-select>
+
+                                    <mat-form-field [style.width]="'60px'" class="push-left">
+                                        <input matInput type="number" formControlName="interest">
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                            <td class="price">
+                                <span class="push-left">{{interestAmount |
+                                    currency:currentGroup?.currency:'symbol-narrow'}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>{{'app.transactions.balanceDue' | translate}}:</b>
+                            </td>
+                            <td>
+                                <span class="push-left">{{balanceDue |
+                                    currency:currentGroup?.currency:'symbol-narrow'}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <ng-template ngxPermissionsOnly="admin">
+
+        <div class="pad" fxLayout="row" *tdLoading="'actions'; mode:'linear'; type:'circle'; strategy:'overlay'; color:'accent'">
+            <button mat-raised-button type="button" (click)="close()">{{'app.common.cancel' | translate}}</button>
+            <span fxFlex></span>
+            <button color="accent" mat-raised-button (click)="save()">{{'app.common.save' | translate}}</button>
+        </div>
+    </ng-template>
+
+</div>

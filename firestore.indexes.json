@@ -1,0 +1,11 @@
+{
+  "indexes": [
+    {
+      "collectionId": "transactions",
+      "fields": [
+        { "fieldPath": "date", "mode": "DESCENDING" },
+        { "fieldPath": "memberId", "mode": "ASCENDING" }
+      ]
+    }
+  ]
+}

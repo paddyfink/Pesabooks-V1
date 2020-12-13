@@ -1,0 +1,15 @@
+<mat-card>
+
+  <mat-tab-group>
+    <mat-tab label="All" *ngIf="isInitialised">
+      <ng-template matTabContent>
+        <app-month-view [categories]="categories" [members]="members" [group]="currentGroup"></app-month-view>
+      </ng-template>
+    </mat-tab>
+    <mat-tab [label]="month.name" *ngFor="let month of months">
+      <ng-template matTabContent>
+        <app-month-view [date]="month" [categories]="categories" [members]="members" [group]="currentGroup"></app-month-view>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

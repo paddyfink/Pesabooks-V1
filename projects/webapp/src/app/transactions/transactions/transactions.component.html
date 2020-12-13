@@ -1,0 +1,44 @@
+<mat-card>
+
+  <div class="push-top-md" fxLayout="row" *ngIf="currentGroup">
+    <mat-card class="pad-md">
+      <div class="mat-headline push-bottom-none tc-green-800">
+        {{totalReceived |currency:currentGroup.currency:'symbol-narrow'}}
+      </div>
+      <div class="secondary-text-color mat-subhead wide-spacing">{{'app.transactions.received' |
+        translate}}
+      </div>
+
+    </mat-card>
+    <mat-card class="pad-md">
+      <div class="mat-headline push-bottom-none">
+        {{totalSent |currency:currentGroup.currency:'symbol-narrow'}}</div>
+      <div class="secondary-text-color mat-subhead wide-spacing">{{'app.transactions.sent' |
+        translate}}</div>
+    </mat-card>
+  </div>
+
+  <div fxLayout="row" class="push-right">
+    <span fxFlex></span>
+    <button mat-raised-button [matMenuTriggerFor]="menu" color="accent" [disabled]="!isAdmin">
+      {{'app.transactions.newTransaction' | translate}}</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="openTransactionModal({direction:'input'})">{{'app.transactions.received'
+        | translate}}</button>
+      <button mat-menu-item (click)="openTransactionModal({direction:'output'})">{{'app.transactions.sent'
+        | translate}}</button>
+    </mat-menu>
+
+  </div>
+  <div class="push-left">
+    <app-transaction-filter></app-transaction-filter>
+  </div>
+  <div class="pad">
+    <ng-template tdLoading [tdLoadingUntil]="!loading" tdLoadingStrategy="overlay" tdLoadingType="linear">
+      <app-transactions-list (duplicate)="duplicate($event)" (select)="openTransactionModal($event)" (markAsPaid)="markAsPaid($event)"
+        (markAsUnpaid)="markAsUnpaid($event)" (copyTransactionsToOtherDate)="copyTransactionsToOtherDate($event)"
+        [transactions]="transactions$ | async" [currentGroup]="currentGroup" (delete)="deleteTransaction($event)"
+        (deleteMany)="deleteManyTransactions($event)"></app-transactions-list>
+    </ng-template>
+  </div>
+</mat-card>

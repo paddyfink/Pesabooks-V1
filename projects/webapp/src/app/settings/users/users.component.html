@@ -1,0 +1,113 @@
+<div fxLayout="column" class="pad push-bottom-xxl">
+
+  <div fxLayout="row" class="push-top pad">
+    <span fxFlex></span>
+    <button mat-raised-button color="accent" (click)="openInviteUserDialog()">{{'app.settings.inviteUser' |
+      translate}}</button>
+  </div>
+
+  <h3>{{'app.settings.users'|translate}}</h3>
+  <mat-table [dataSource]="usersDataSource" matSort>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="fullName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{'app.settings.name'|translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <span class="mobile-label">{{'app.settings.name'|translate}}:</span>{{row.fullName}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{'app.settings.email' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <span class="mobile-label">{{'app.settings.email' | translate}}:</span>
+        {{row.email}} </mat-cell>
+    </ng-container>
+
+
+
+    <!-- Color Column -->
+    <ng-container matColumnDef="roles">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{'app.settings.role' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <span class="mobile-label">{{'app.settings.role' | translate}}:</span> {{row.role}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef mat-sort-header hide-xs> </mat-header-cell>
+      <mat-cell *matCellDef="let row" hide-xs>
+        <span fxFlex></span>
+        <button mat-icon-button [mat-menu-trigger-for]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu x-position="before" #menu="matMenu">
+          <!-- <a [routerLink]="[user.id, 'edit']" mat-menu-item>
+                          <mat-icon>edit</mat-icon> Edit
+                        </a> -->
+          <button mat-menu-item (click)="deleteUser(row)" *ngIf="currentUser?.id != row.id">
+            {{'app.settings.removeUser' | translate}}
+          </button>
+        </mat-menu>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="usersDisplayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: usersDisplayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <h3 class="push-top-xxl">{{'app.settings.invitations' | translate}}</h3>
+
+  <div layout="column" layout-align="center center" class="tc-grey-500 mat-typography" *ngIf="invitationsDataSource?.data?.length==0; else invitationTab;">
+    <h2>{{'app.settings.noActiveInvitations' | translate}}</h2>
+  </div>
+
+  <ng-template #invitationTab>
+    <mat-table [dataSource]="invitationsDataSource" matSort>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'app.settings.email' | translate}} </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <span class="mobile-label">{{'app.settings.email' | translate}}:</span> {{row.email}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'app.settings.role' | translate}} </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <span class="mobile-label">{{'app.settings.role' | translate}}:</span> {{row.role}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{'app.settings.status' | translate}} </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <span class="mobile-label">{{'app.settings.status' | translate}}:</span> {{row.status}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef mat-sort-header hide-xs> </mat-header-cell>
+        <mat-cell *matCellDef="let row" hide-xs>
+          <span fxFlex></span>
+          <button mat-icon-button [mat-menu-trigger-for]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu [overlapTrigger]="false" x-position="before" #menu="matMenu">
+            <!-- <a [routerLink]="[user.id, 'edit']" mat-menu-item>
+                            <mat-icon>edit</mat-icon> Edit
+                          </a> -->
+            <button mat-menu-item (click)="revokeInvitation(row)">
+              {{'app.settings.revokeInvitation' | translate}}
+            </button>
+            <button mat-menu-item (click)="sendInvitation(row)">
+              {{'app.settings.resendInvitation' | translate}}
+            </button>
+          </mat-menu>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="invitationsDisplayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: invitationsDisplayedColumns;">
+      </mat-row>
+    </mat-table>
+  </ng-template>
+
+</div>

@@ -1,0 +1,75 @@
+<section>
+  <article>
+    <form [formGroup]="form">
+      <mat-card>
+        <div *tdLoading="'loading'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'accent'">
+          <td-message #messagePanel [label]="'app.auth.requestTitle' | translate" [sublabel]="'app.auth.requestMessage' | translate"
+            class="bgc-green-700 tc-green-100" icon="info" [opened]="false">
+
+          </td-message>
+          <mat-card-content class="text-center" *ngIf="showForm">
+            <div class="push-bottom-md">
+              <!-- <img src="/assets/logo/logo-text-black.png"> -->
+              <h3>Pesabooks</h3>
+            </div>
+
+            <mat-form-field fxFlexFill>
+              <input matInput formControlName="email" [placeholder]="'app.auth.email' | translate" type="email" maxlength="30" name="email">
+              <mat-error [hidden]="!emailControl.errors?.required || !emailControl.errors?.email">
+                {{"app.validations.email" | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlexFill>
+              <input matInput formControlName="city" [placeholder]="'app.auth.city' | translate" maxlength="30" name="city">
+              <mat-error [hidden]="!cityControl.errors?.required">
+                {{"app.validations.fieldRequired" | translate:{field: 'app.auth.city' | translate} }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlexFill>
+              <mat-select formControlName="members" [placeholder]="'app.auth.members' | translate" name="members">
+                <mat-option value="1-15">
+                  1-15
+                </mat-option>
+                <mat-option value="15-30">
+                  15-30
+                </mat-option>
+                <mat-option value="30-50">
+                  30-50
+                </mat-option>
+                <mat-option value="50+">
+                  {{'app.auth.50+' | translate}}
+                </mat-option>
+              </mat-select>
+              <!-- <input matInput formControlName="members" type="number" [placeholder]="'app.auth.members' | translate" maxlength="30" name="members"> -->
+              <mat-error [hidden]="!membersControl.errors?.required">
+                {{"app.validations.fieldRequired" | translate:{field: 'app.auth.members' | translate} }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlexFill>
+              <input matInput formControlName="contribution" type="number" [placeholder]="'app.auth.contribution' | translate" maxlength="30"
+                name="contribution">
+              <mat-error [hidden]="!contributionControl.errors?.required">
+                {{"app.validations.fieldRequired" | translate:{field: 'app.auth.contribution' | translate} }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlexFill>
+              <mat-select [placeholder]="'app.groups.currency' | translate" formControlName="currency">
+                <mat-option *ngFor="let currency of currencies$ | async" [value]="currency.value">
+                  {{ currency.value }} - {{ currency.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" class="push-top-sm" (click)="request()">{{"app.auth.request" | translate }}</button>
+            <div class="push-top-md">{{"app.auth.alreadyHaveAccount" | translate }}</div>
+            <a routerLink="/auth" class="primary-color">{{"app.auth.login" | translate }}</a>
+          </mat-card-content>
+        </div>
+      </mat-card>
+    </form>
+  </article>
+</section>

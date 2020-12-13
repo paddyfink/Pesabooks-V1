@@ -1,0 +1,8 @@
+<mat-card class="pad">
+  <div fxLayout="row" class="push-top pad">
+    <span fxFlex></span>
+    <button mat-raised-button color="accent" [disabled]="!isAdmin" (click)="openMemberDialog(null)">{{'app.members.addMember'
+      | translate}}</button>
+  </div>
+  <app-members-list *ngIf="members$ | async as members" [members]="members" (openDialog)="openMemberDialog($event)"></app-members-list>
+</mat-card>

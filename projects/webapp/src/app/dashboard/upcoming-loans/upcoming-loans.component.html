@@ -1,0 +1,5 @@
+<mat-card class="pad">
+  <mat-card-title>{{'app.dashboard.upcomingLoans' | translate}}</mat-card-title>
+  <app-transactions-list class="push-top-md" [transactions]="transactions$ | async" [showTotal]="false" [columns]="columns"
+    [clickable]="false"></app-transactions-list>
+</mat-card>

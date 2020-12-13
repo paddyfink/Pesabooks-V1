@@ -1,0 +1,19 @@
+<div class="container">
+  <mat-card>
+    <mat-card-title>Groups</mat-card-title>
+    <button name="addButton" mat-icon-button color="primary" routerLink="/new">
+      <mat-icon>add</mat-icon>
+    </button>
+    <mat-nav-list>
+      <ng-template ngFor let-group let-last="last" [ngForOf]="groups$ | async | orderBy: '-createdAt'">
+        <mat-list-item (click)="selectGroup(group.id)">
+          <h3 matLine> {{group.name}} </h3>
+          <p matLine>
+            <span> {{group.description}} </span>
+          </p>
+        </mat-list-item>
+        <mat-divider *ngIf="!last"></mat-divider>
+      </ng-template>
+    </mat-nav-list>
+  </mat-card>
+</div>

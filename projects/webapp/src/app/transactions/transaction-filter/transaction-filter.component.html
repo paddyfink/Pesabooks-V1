@@ -1,0 +1,88 @@
+<div fxLayout="row">
+  <button mat-raised-button [matMenuTriggerFor]="menu">
+    {{'app.transactions.filters.filter' | translate}}
+    <mat-icon>keyboard_arrow_down</mat-icon>
+  </button>
+  <a *ngIf="filter.memberId" href="javascript:void(0)" class="push-left" fxLayoutAlign="start center" (click)="clearField('memberId')">
+    {{getMemberName(filter.memberId)}}
+    <mat-icon>clear</mat-icon>
+  </a>
+  <a *ngIf="filter.categoryId" href="javascript:void(0)" class="push-left" fxLayoutAlign="start center" (click)="clearField('categoryId')">
+    {{getCateogryName(filter.categoryId)}}
+    <mat-icon>clear</mat-icon>
+  </a>
+  <a *ngIf="filter.direction" href="javascript:void(0)" class="push-left" fxLayoutAlign="start center" (click)="clearField('direction')">
+    {{'app.transactions.'+filter.direction+'Transactions'| translate}}
+    <mat-icon>clear</mat-icon>
+  </a>
+  <a *ngIf="filter.type" href="javascript:void(0)" class="push-left" fxLayoutAlign="start center" (click)="clearField('type')">
+    {{'app.transactions.'+filter.type | translate}}
+    <mat-icon>clear</mat-icon>
+  </a>
+  <a *ngIf="filter.month" href="javascript:void(0)" class="push-left" fxLayoutAlign="start center" (click)="clearField('month')">
+    {{filter.month.name}}
+    <mat-icon>clear</mat-icon>
+  </a>
+  <a *ngIf="isFiltered$ | async" href="javascript:void(0)" class="push-left" fxLayoutAlign="start center" (click)="clearAll()">
+    Clear filter/View all
+  </a>
+
+</div>
+<mat-menu #menu="matMenu" [overlapTrigger]="false">
+  <span mat-menu-item [disableRipple]="true" (click)="$event.stopPropagation()" class="pad">
+    <!-- popover content begin -->
+    <form class="example-form" [formGroup]="filterForm" novalidate>
+      <div fxLayout="column">
+        <mat-form-field floatLabel="always">
+          <mat-label> {{'app.transactions.filters.member'| translate}}</mat-label>
+          <mat-select formControlName="memberId" [placeholder]="'app.transactions.filters.allMembers'| translate">
+            <mat-option>{{'app.transactions.filters.allMembers'| translate}}</mat-option>
+            <mat-option *ngFor="let member of members" [value]="member.id">
+              {{getMemberName(member.id)}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field floatLabel="always">
+          <mat-label>{{'app.transactions.filters.category'| translate}}</mat-label>
+          <mat-select formControlName="categoryId" [placeholder]="'app.transactions.filters.allCategories'| translate">
+            <mat-option>{{'app.transactions.filters.allCategories'| translate}}</mat-option>
+            <mat-option *ngFor="let category of categories" [value]="category.id">
+              {{ category.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field floatLabel="always">
+          <mat-label>{{'app.transactions.filters.direction'| translate}}</mat-label>
+          <mat-select formControlName="direction" [placeholder]="'app.transactions.filters.allDirections'| translate">
+            <mat-option>{{'app.transactions.filters.allDirections'| translate}}</mat-option>
+            <mat-option value="input"> {{'app.transactions.inputTransactions'| translate}} </mat-option>
+            <mat-option value="output">{{'app.transactions.outputTransactions'| translate}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field floatLabel="always">
+          <mat-label>{{'app.transactions.filters.type'| translate}}</mat-label>
+          <mat-select formControlName="type" [placeholder]="'app.transactions.filters.allTypes'| translate">
+            <mat-option>{{'app.transactions.filters.allTypes'| translate}}</mat-option>
+            <mat-option value="payment"> {{'app.transactions.payment'| translate}} </mat-option>
+            <mat-option value="loan"> {{'app.transactions.loan'| translate}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field floatLabel="always">
+          <mat-label>{{'app.transactions.filters.date'| translate}}</mat-label>
+          <mat-select formControlName="month" [placeholder]="'app.transactions.filters.allDates'| translate">
+            <mat-option>{{'app.transactions.filters.allDates'| translate}}</mat-option>
+            <mat-option *ngFor="let month of months" [value]="month">
+              {{ month.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div fxLayout="row" fxFlex>
+          <button mat-raised-button (click)="clearAll()">Reset</button>
+          <span fxFlex></span>
+          <button mat-raised-button (click)="apply()">Apply</button>
+        </div>
+      </div>
+    </form>
+    <!-- popover content end  -->
+  </span>
+</mat-menu>

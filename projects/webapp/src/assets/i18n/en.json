@@ -1,0 +1,166 @@
+{
+	"app": {
+		"auth": {
+			"50+": "More than 50",
+			"alreadyHaveAccount": "Already have an account?",
+			"city": "City",
+			"contribution": "Minimum contribution per member",
+			"dontHaveAccount": "Don't have an account?",
+			"email": "Email",
+			"firstName": "First Name",
+			"invalidInvitation": "You invitation code is not valid or is expired. Please contact the administrator of your group",
+			"invalidLoginOrPassword": "Invalid email or password",
+			"lastName": "Last Name",
+			"login": "Login",
+			"members": "Size of your group",
+			"password": "Password",
+			"register": "Register",
+			"registrationCode": "Registration Code",
+			"repeatPassword": "Repeat Password",
+			"request": "Request Access",
+			"requestAccess": "Request access",
+			"requestMessage": "Your message has been sent. We'll get back to you as soon as possible.",
+			"requestTitle": "THANK YOU",
+			"restriction": "Access to the application is per invitation only during the beta.Reqest access via the button at the bottom",
+			"signInButtom": "Sign in",
+			"signInWithEmail": "Sign in with email",
+			"signInWithFacebook": "Sign in with Facebook",
+			"signInWithGoogle": "Sign in with Google"
+		},
+		"common": {
+			"cancel": "Cancel",
+			"categories": "Categories ",
+			"dashboard": "Dashboard",
+			"delete": "Delete",
+			"edit": "Edit",
+			"member": "Member",
+			"members": "Members",
+			"report": "Report",
+			"save": "Save",
+			"settings": "Settings",
+			"transactions": "Transactions",
+			"users": "Users"
+		},
+		"dashboard": {
+			"balance": "Balance",
+			"bank": "Bank",
+			"latestTransactions": "Latest Transactions",
+			"loans": "Loans",
+			"received": "Received",
+			"savings": "Savings",
+			"sent": "Sent",
+			"totalPerCategory": "Total Per Category",
+			"transactionsPerMonth": "Transactions Per Month",
+			"upcomingLoans": "Upcoming Loans"
+		},
+		"groups": {
+			"create": "Create",
+			"createNewGroup": "Create New Circle",
+			"currency": "Currency",
+			"description": "Descirption of the circle",
+			"name": "Name of the circle",
+			"newGroup": "New Circle",
+			"openingBalance": "Opening Balance",
+			"startDate": "Start Date",
+			"swithGroup": "Switch Circle"
+		},
+		"logout": "Logout",
+		"members": {
+			"addMember": "Add Member"
+		},
+		"settings": {
+			"categories": {
+				"contribution": "Contribution",
+				"fineAndPenalty": "Fines And Penalties",
+				"interestAndFee": "Interest & Fees",
+				"loan": "Loans",
+				"pot": "Pool",
+				"repayment": "Reimboursements"
+			},
+			"email": "Email",
+			"general": "General",
+			"invitations": "Invitations",
+			"inviteUser": "Invite New User",
+			"name": "Name",
+			"noActiveInvitations": "No Active Invitations",
+			"removeUser": "Remove User",
+			"role": "Role",
+			"status": "Status",
+			"users": "Users"
+		},
+		"transactions": {
+			"actions": {
+				"actions": "Actions",
+				"receivePayments": "Receive Payments"
+			},
+			"addLine": "Add Line",
+			"amount": "Amount",
+			"balance": "Balance",
+			"balanceDue": "Balance Due",
+			"category": "Category",
+			"date": "Date",
+			"dueDate": "Due Date",
+			"filters": {
+				"allCategories": "All Categories",
+				"allDates": "All Dates",
+				"allDirections": "All Directions",
+				"allMembers": "All Members",
+				"allTypes": "All Types",
+				"category": "Category",
+				"date": "Date",
+				"direction": "Direction",
+				"filter": "Filter",
+				"member": "Member",
+				"type": "Type"
+			},
+			"incomingTransaction": "Incoming Transaction",
+			"input": {
+				"loan": "Incoming Loan",
+				"payment": "Incoming Payment"
+			},
+			"inputTransactions": "Incoming Transactions",
+			"loan": "Loan",
+			"markAsPaid": "Mark as Paid",
+			"markAsUnpaid": "Mark as unpaid",
+			"member": "Member",
+			"newTransaction": "New Transaction",
+			"outgoingTransaction": "Outgoing Transaction",
+			"output": {
+				"loan": "Outgoing Loan",
+				"payment": "Outgoing Payment"
+			},
+			"outputTransactions": "Outgoing Transactions",
+			"payment": "Payment",
+			"received": "Received",
+			"sent": "Sent",
+			"status": {
+				"closed": "Closed",
+				"paid": "Paid",
+				"status": "Status",
+				"unpaid": "Unpaid"
+			},
+			"total": "Total",
+			"totalInputLoans": "Total Incoming Loans",
+			"totalInputPayments": "Total Incoming Payments",
+			"totalOutputLoans": "Total Outgoing Loans",
+			"totalOutputPayments": "Total Outgoing Payments",
+			"transactionLine": {
+				"amount": "Amount",
+				"category": "Category",
+				"description": "Description"
+			},
+			"trends": "",
+			"type": "Type"
+		},
+		"validations": {
+			"currency": "Select a valid currency",
+			"email": "This is not a valid email address",
+			"fieldRequired": "{{field}} is Required",
+			"registrationCode": "Invalid code",
+			"repeatPassword": "Passwords don't match",
+			"required": "Required"
+		},
+		"welcomeMessage": "Welcome to Pesabooks!",
+		"welcomeMessageTagline": "An accounting software to help you keep your savings and credit group organized"
+	}
+}

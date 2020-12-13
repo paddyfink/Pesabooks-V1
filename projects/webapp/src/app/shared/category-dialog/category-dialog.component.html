@@ -1,0 +1,34 @@
+<form [formGroup]="categoryForm" fxLayout="column" fxFlexFill>
+
+  <div fxLayout="row">
+    <h2 mat-dialog-title>Category</h2>
+    <span fxFlex></span>
+    <button mat-icon-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <mat-dialog-content fxLayout="column">
+    <mat-form-field>
+      <input matInput placeholder="Name" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select formControlName="type" placeholder="type">
+        <mat-option value="contribution">{{'app.settings.categories.contribution' | translate}} </mat-option>
+        <mat-option value="pot">{{'app.settings.categories.pot' | translate}} </mat-option>
+        <mat-option value="interestAndFee">{{'app.settings.categories.interestAndFee' | translate}} </mat-option>
+        <mat-option value="fineAndPenalty">{{'app.settings.categories.fineAndPenalty' | translate}} </mat-option>
+        <mat-option value="loan">{{'app.settings.categories.loan' | translate}} </mat-option>
+        <mat-option value="repayment">{{'app.settings.categories.repayment' | translate}} </mat-option>
+        <mat-divider></mat-divider>
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-divider></mat-divider>
+
+  <div fxLayout="row" *tdLoading="'actionsCategory'; mode:'linear'; type:'circle'; strategy:'overlay'; color:'accent'">
+    <button mat-raised-button type="button" matDialogClose>{{'app.common.cancel' | translate}}</button>
+    <span fxFlex></span>
+    <button color="accent" mat-raised-button (click)="save()">{{'app.common.save' | translate}}</button>
+  </div>
+</form>

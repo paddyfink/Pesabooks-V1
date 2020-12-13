@@ -1,0 +1,41 @@
+<div fxLayout="column">
+
+  <div fxLayout="row" class="pad">
+    <span fxFlex></span>
+    <button mat-raised-button color="accent" (click)="openCategoryModal()">Add New Category</button>
+  </div>
+
+  <mat-list class="push-bottom ">
+    <div class="pad" *ngIf="categories?.length === 0" layout="row" layout-align="center center">
+      <h3>No categories</h3>
+
+    </div>
+    <ng-template let-group let-last="last" ngFor [ngForOf]="categories | groupBy: 'type' | pairs">
+      <h3 mat-subheader>{{'app.settings.categories.'+group[0] | translate}}</h3>
+      <mat-list-item *ngFor="let category of group[1]">
+        <mat-icon matListAvatar>
+          <fa-icon [icon]="['far', 'tag']"></fa-icon>
+        </mat-icon>
+        <h3 matLine> {{category.name}} </h3>
+        <span flex></span>
+
+        <span>
+          <button mat-icon-button [mat-menu-trigger-for]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu x-position="before" #menu="matMenu">
+            <a (click)="openCategoryModal(category)" mat-menu-item>
+              <mat-icon>edit</mat-icon> {{'app.common.edit' | translate}}
+            </a>
+            <!-- <a (click)="openCategoryModal(category)" mat-menu-item>
+              <mat-icon>archive</mat-icon> {{category.active?'app.settings.activate':'app.settings.deactivate' |
+              translate}}
+            </a> -->
+
+          </mat-menu>
+        </span>
+      </mat-list-item>
+      <mat-divider *ngIf="!last" [inset]="true"></mat-divider>
+    </ng-template>
+  </mat-list>
+</div>

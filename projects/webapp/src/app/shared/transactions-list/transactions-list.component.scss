@@ -1,0 +1,24 @@
+.hidden {
+  display: none;
+}
+
+// .mat-row,
+// .mat-header-row,
+// .mat-footer-row {
+//   min-width: 1123px;
+//   width: 100%;
+//   width: max-content;
+// }
+
+.mat-table {
+  overflow-x: auto;
+}
+
+.mat-cell,
+.mat-header-cell,
+.mat-footer-cell {
+  min-width: 50px;
+  &.amount {
+    min-width: 100px;
+  }
+}

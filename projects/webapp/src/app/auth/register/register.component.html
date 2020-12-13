@@ -1,0 +1,64 @@
+<section>
+  <article>
+    <mat-card [formGroup]="form">
+      <div *tdLoading="'loading'; mode:'indeterminate'; type:'circle'; strategy:'overlay'; color:'accent'">
+        <td-message #messagePanel label="Error!" [sublabel]="errorMsg" color="warn" icon="error" [opened]="false">
+          <button td-message-actions mat-icon-button (click)="messagePanel.close()" type="button">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </td-message>
+        <mat-card-content class="text-center">
+          <div class="push-bottom-md">
+            <!-- <img src="/assets/logo/logo-text-black.png"> -->
+            <h3>Pesabooks</h3>
+          </div>
+          <mat-form-field fxFlexFill>
+            <input matInput formControlName="firstName" [placeholder]="'app.auth.firstName' | translate" maxlength="30"
+              name="firstName">
+            <mat-error [hidden]="!firstNameControl.errors?.required">
+              {{"validations.fieldRequired" | translate:{field: 'app.auth.firstName' | translate} }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlexFill>
+            <input matInput formControlName="lastName" [placeholder]="'app.auth.lastName' | translate" maxlength="30"
+              name="lastName">
+            <mat-error [hidden]="!lastNameControl.errors?.required">
+              {{"validations.fieldRequired" | translate:{field: 'app.auth.lastName' | translate} }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlexFill>
+            <input matInput formControlName="email" [placeholder]="'app.auth.email' | translate" type="email" maxlength="30"
+              name="email">
+            <mat-error [hidden]="!emailControl.errors?.required || !emailControl.errors?.email">
+              {{"app.validations.email" | translate }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlexFill>
+            <input matInput formControlName="password" [placeholder]="'app.auth.password' | translate" type="password"
+              name="password">
+            <mat-error [hidden]="!passwordControl.errors?.required">
+              {{"validations.fieldRequired" | translate:{field: 'app.auth.password' | translate} }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlexFill>
+            <input matInput formControlName="repeatPassword" [placeholder]="'app.auth.repeatPassword' | translate" type="password"
+              name="repeatPassword">
+            <mat-error [hidden]="!repeatPasswordControl.errors?.required">
+              {{"app.validations.repeatPassword" | translate}}
+            </mat-error>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" class="push-top-sm" (click)="register()">{{"app.auth.register" |
+            translate }}</button>
+          <div class="push-top-md">{{"app.auth.alreadyHaveAccount" | translate }}</div>
+          <a routerLink="/auth/login" [queryParams]="{next: next}" class="primary-color">{{"app.auth.login" | translate
+            }}</a>
+        </mat-card-content>
+      </div>
+    </mat-card>
+  </article>
+</section>

@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "staging": "pesabooks-staging",
+    "production": "pesabooks-prod"
+  }
+}

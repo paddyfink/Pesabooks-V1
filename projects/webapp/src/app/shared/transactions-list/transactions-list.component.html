@@ -1,0 +1,149 @@
+<div class="push-left-xl push-bottom" *ngIf="showTotal">
+  <button mat-raised-button [matMenuTriggerFor]="menu" [disabled]="selection.selected.length==0">Batch Actions
+    <mat-icon>keyboard_arrow_down</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button [disabled]="!isAdmin" (click)="copyTransactionsToOtherDate.emit(selection.selected)" mat-menu-item>Copy to
+      another date</button>
+    <button [disabled]="!isAdmin" (click)="deleteMany.emit(selection.selected)" mat-menu-item>Delete selected</button>
+  </mat-menu>
+
+</div>
+<div class="pad" *ngIf="!transactions || transactions?.length === 0; else transactionsTable" layout="row" layout-align="center center">
+  <h3>No transactions to display.</h3>
+</div>
+<ng-template #transactionsTable>
+  <mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef hide-xs>
+        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" hide-xs>
+        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef hide-xs> </mat-footer-cell>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef> {{'app.transactions.date' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let transaction">
+        <span class="mobile-label">{{'app.transactions.date' | translate}}:</span>
+        {{transaction.date | date}} </mat-cell>
+      <mat-footer-cell *matFooterCellDef>{{'app.transactions.balance' | translate}} </mat-footer-cell>
+    </ng-container>
+
+    <!-- Type Column -->
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef> {{'app.transactions.type' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let transaction">
+        <span class="mobile-label">{{'app.transactions.type' | translate}}:</span>
+        {{transaction.type}} </mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+    </ng-container>
+
+    <!-- Member Column -->
+    <ng-container matColumnDef="member">
+      <mat-header-cell *matHeaderCellDef> {{'app.transactions.member' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let transaction">
+        <span class="mobile-label">{{'app.transactions.member' | translate}} :</span>
+        {{transaction.memberFullName}} </mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+    </ng-container>
+
+    <!-- Category Column -->
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef> {{'app.transactions.category' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let transaction">
+        <span class="mobile-label">{{'app.transactions.category' | translate}}:</span>
+        {{getLinesCategories(transaction)}} </mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+    </ng-container>
+
+
+
+    <!-- total Column -->
+    <ng-container matColumnDef="total">
+      <mat-header-cell class="amount" *matHeaderCellDef> {{'app.transactions.amount' | translate}}
+      </mat-header-cell>
+      <mat-cell class="amount" *matCellDef="let transaction">
+        <span class="mobile-label">{{'app.transactions.amount' | translate}}:</span>
+        <span [ngClass]="{'tc-green-800':transaction.direction==='input'}">
+          <span *ngIf="transaction.direction==='output'">-</span>
+          {{transaction.total | currency:currentGroup?.currency:'symbol-narrow'}}</span>
+      </mat-cell>
+      <mat-footer-cell class="amount" *matFooterCellDef>
+        <span [ngClass]="{'tc-green-800':totalInput - totalOutput>=0, 'tc-red-800':totalInput - totalOutput<0}">
+          {{totalInput - totalOutput |currency:currentGroup?.currency:'symbol-narrow'}}
+        </span>
+      </mat-footer-cell>
+    </ng-container>
+
+    <!-- Balance due -->
+    <ng-container matColumnDef="balanceDue">
+      <mat-header-cell class="amount" *matHeaderCellDef> Balance due</mat-header-cell>
+      <mat-cell class="amount" *matCellDef="let transaction">
+        <span class="mobile-label">Balance due:</span>
+        <span>{{transaction.balanceDue | currency:currentGroup?.currency:'symbol-narrow'}}</span>
+      </mat-cell>
+      <mat-footer-cell class="amount" *matFooterCellDef> </mat-footer-cell>
+    </ng-container>
+
+    <!-- Due date Column -->
+    <ng-container matColumnDef="dueDate">
+      <mat-header-cell *matHeaderCellDef> {{'app.transactions.dueDate' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let transaction">
+        <span class="mobile-label">{{'app.transactions.dueDate' | translate}}:</span>
+        <span *ngIf="transaction.dueDate" [ngClass]="{'tc-red-400':transaction.dueDate<TODAY}">{{transaction.dueDate |
+          date}}</span>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> {{'app.transactions.status.status' | translate}} </mat-header-cell>
+      <mat-cell *matCellDef="let transaction">
+        <span class="mobile-label">{{'app.transactions.status.status' | translate}}:</span>
+        <span *ngIf="transaction.status" [ngClass]="{'tc-green-400':transaction['status']=='paid', 'tc-yellow-900':transaction['status']=='unpaid'}">{{'app.transactions.status.'+transaction['status']
+          | translate}}</span>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef hide-xs> </mat-header-cell>
+      <mat-cell *matCellDef="let transaction" hide-xs>
+        <span fxFlex></span>
+        <button mat-icon-button [mat-menu-trigger-for]="menu" (click)="$event.stopPropagation()">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu x-position="before" #menu="matMenu">
+          <button mat-menu-item (click)="delete.emit(transaction)" mat-menu-item>
+            Delete
+          </button>
+          <button mat-menu-item (click)="duplicate.emit(transaction)" mat-menu-item>
+            Duplicate
+          </button>
+          <button mat-menu-item (click)="saveTemplate.emit(transaction)" mat-menu-item>
+            Save as template
+          </button>
+          <button mat-menu-item *ngIf="transaction['status']==='unpaid'" (click)="markAsPaid.emit(transaction)">{{'app.transactions.markAsPaid'
+            | translate}}</button>
+          <button mat-menu-item *ngIf="transaction['status']==='paid'" (click)="markAsUnpaid.emit(transaction)">{{'app.transactions.markAsUnpaid'
+            | translate}}</button>
+        </mat-menu>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef hide-xs> </mat-footer-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columns;" [ngClass]="{'cursor-pointer':clickable}" (click)="select.emit(row)"></mat-row>
+    <mat-footer-row [ngClass]="{'hidden':!showTotal}" *matFooterRowDef="columns"></mat-footer-row>
+  </mat-table>
+</ng-template>

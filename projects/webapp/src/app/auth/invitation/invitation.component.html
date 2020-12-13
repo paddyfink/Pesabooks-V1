@@ -1,0 +1,24 @@
+<section fxLayoutAlign="center center" fxFlexFill>
+
+  <mat-card>
+    <td-message #messagePanel [sublabel]="errorMessage" color="warn" icon="error" [opened]="isInvitationCodeInvalid">
+      <button td-message-actions mat-icon-button (click)="messagePanel.close()" type="button">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </td-message>
+    <mat-card-title>Circle Invite</mat-card-title>
+    <mat-card-subtitle>
+      You have been invite to join {{invitation?.groupName}}
+    </mat-card-subtitle>
+    <mat-card-content>
+      To continue, you must either login to your existing account, or create a new one
+    </mat-card-content>
+    <mat-card-actions fxLayout="row">
+      <button mat-raised-button color="primary" [routerLink]="['/auth/register']" [queryParams]="{next: next}">Create
+        new
+        account</button>
+      <span fxFlex></span>
+      <button mat-raised-button [routerLink]="['/auth/login']" [queryParams]="{next: next}">Login as an Existing User</button>
+    </mat-card-actions>
+  </mat-card>
+</section>

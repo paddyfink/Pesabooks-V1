@@ -1,0 +1,38 @@
+:host {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+}
+table.transactions {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+
+  td,
+  th {
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+}
+
+table {
+  width: 100%;
+}
+
+table.loan-section {
+  td {
+    text-align: right;
+    &.price {
+      width: 150px;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  flex: 1;
+}
