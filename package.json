@@ -51,7 +51,7 @@
     "firebaseui": "^3.4.1",
     "firebaseui-angular": "^3.3.2",
     "hammerjs": "^2.0.8",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.21",
     "moment": "^2.22.1",
     "ngx-permissions": "^5.0.0",
     "ngx-pipes": "^2.1.7",
